@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <InvariantGlobalization>false</InvariantGlobalization>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PackageGroup.Ecommerce.Domain.Entity\PackageGroup.Ecommerce.Domain.Entity.csproj" />
+    <ProjectReference Include="..\PackageGroup.Ecommerce.Domain.Interface\PackageGroup.Ecommerce.Domain.Interface.csproj" />
+    <ProjectReference Include="..\PackageGroup.Ecommerce.Infrastructure.Interface\PackageGroup.Ecommerce.Infrastructure.Interface.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,50 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <InvariantGlobalization>false</InvariantGlobalization>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <DocumentationFile>PackageGroup.Ecommerce.WebApi\PackageGroup.Ecommerce.WebApi.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.5.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.5.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PackageGroup.Ecommerce.Application.DTO\PackageGroup.Ecommerce.Application.DTO.csproj" />
+    <ProjectReference Include="..\PackageGroup.Ecommerce.Application.Interface\PackageGroup.Ecommerce.Application.Interface.csproj" />
+    <ProjectReference Include="..\PackageGroup.Ecommerce.Application.Main\PackageGroup.Ecommerce.Application.Main.csproj" />
+    <ProjectReference Include="..\PackageGroup.Ecommerce.Domain.Core\PackageGroup.Ecommerce.Domain.Core.csproj" />
+    <ProjectReference Include="..\PackageGroup.Ecommerce.Domain.Entity\PackageGroup.Ecommerce.Domain.Entity.csproj" />
+    <ProjectReference Include="..\PackageGroup.Ecommerce.Domain.Interface\PackageGroup.Ecommerce.Domain.Interface.csproj" />
+    <ProjectReference Include="..\PackageGroup.Ecommerce.Infrastructure.Data\PackageGroup.Ecommerce.Infrastructure.Data.csproj" />
+    <ProjectReference Include="..\PackageGroup.Ecommerce.Infrastructure.Interface\PackageGroup.Ecommerce.Infrastructure.Interface.csproj" />
+    <ProjectReference Include="..\PackageGroup.Ecommerce.Infrastructure.Repository\PackageGroup.Ecommerce.Infrastructure.Repository.csproj" />
+    <ProjectReference Include="..\PackageGroup.Ecommerce.Transversal.Common\PackageGroup.Ecommerce.Transversal.Common.csproj" />
+    <ProjectReference Include="..\PackageGroup.Ecommerce.Transversal.Mapper\PackageGroup.Ecommerce.Transversal.Mapper.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>
