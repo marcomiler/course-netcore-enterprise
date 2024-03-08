@@ -21,11 +21,8 @@ namespace PackageGroup.Ecommerce.Infrastructure.Data
                 var connectionString = _configuration.GetConnectionString("NorthwindConnection");
                 var sqlConnection = new SqlConnection(connectionString);
 
-                //sqlConnection.ConnectionString = _configuration.GetConnectionString("NorthwindConnection");
-
                 if (sqlConnection is null) return null;
-
-                //sqlConnection.Open();
+                sqlConnection.Open();
 
                 return sqlConnection;
             }

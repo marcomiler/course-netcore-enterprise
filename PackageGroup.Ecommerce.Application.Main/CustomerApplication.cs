@@ -9,10 +9,10 @@ namespace PackageGroup.Ecommerce.Application.Main
 {
     public class CustomerApplication : ICustomerApplication
     {
-        private readonly ICustomersDomain _customerDomain;
+        private readonly ICustomerDomain _customerDomain;
         private readonly IMapper _mapper;
 
-        public CustomerApplication(ICustomersDomain customerDomain, IMapper mapper)
+        public CustomerApplication(ICustomerDomain customerDomain, IMapper mapper)
         {
             _customerDomain = customerDomain;
             _mapper = mapper;

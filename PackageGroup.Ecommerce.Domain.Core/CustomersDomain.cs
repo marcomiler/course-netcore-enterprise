@@ -4,7 +4,7 @@ using PackageGroup.Ecommerce.Infrastructure.Interface;
 
 namespace PackageGroup.Ecommerce.Domain.Core
 {
-    public class CustomersDomain : ICustomersDomain
+    public class CustomersDomain : ICustomerDomain
     {
         private readonly ICustomersRepository _customersRepository;
         public CustomersDomain(ICustomersRepository customersRepository)

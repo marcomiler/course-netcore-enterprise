@@ -2,7 +2,7 @@
 
 namespace PackageGroup.Ecommerce.Domain.Interface
 {
-    public interface ICustomersDomain
+    public interface ICustomerDomain
     {
         #region Síncronos
         bool Insert(Customers customer);

@@ -1,4 +1,5 @@
-using Microsoft.AspNetCore.Identity.Data;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using PackageGroup.Ecommerce.Application.Interface;
 using PackageGroup.Ecommerce.Application.Main;
@@ -9,9 +10,12 @@ using PackageGroup.Ecommerce.Infrastructure.Interface;
 using PackageGroup.Ecommerce.Infrastructure.Repository;
 using PackageGroup.Ecommerce.Transversal.Common;
 using PackageGroup.Ecommerce.Transversal.Mapper;
+using PackageGroup.Ecommerce.WebApi.Helpers;
 using System.Reflection;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+var myPolicy = "policyApiEcommerce";
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -25,18 +29,73 @@ builder.Services.AddAutoMapper(x => x.AddProfile(new MappingProfile()));
 
 builder.Services.AddCors(opt =>
 {
-    opt.AddPolicy("AllOrigins", b =>
+    opt.AddPolicy(myPolicy, b =>
     {
-        b.AllowAnyMethod()
-        .AllowAnyHeader()
-        .AllowAnyOrigin();
+        b.WithOrigins(builder.Configuration["Config:OriginCors"])
+            .AllowAnyHeader()
+            .AllowAnyMethod();
     });
 });
+
+var appSettingsSection = builder.Configuration.GetSection("Config");
+builder.Services.Configure<AppSettings>(appSettingsSection);
+
+var appSettings = appSettingsSection.Get<AppSettings>();
+
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 builder.Services.AddSingleton<IConnectionFactory, ConnectionFactory>();
+
+builder.Services.AddScoped<IUserApplication, UserApplication>();
 builder.Services.AddScoped<ICustomerApplication, CustomerApplication>();
-builder.Services.AddScoped<ICustomersDomain, CustomersDomain>();
+
+builder.Services.AddScoped<IUserDomain, UserDomain>();
+builder.Services.AddScoped<ICustomerDomain, CustomersDomain>();
+
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ICustomersRepository, CustomerRepository>();
+
+var key = Encoding.ASCII.GetBytes(appSettings.Secret);
+var issuer = appSettings.Issuer;
+var audience = appSettings.Audience;
+
+builder.Services.AddAuthentication(x =>
+{
+    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(x =>
+{
+    x.Events = new JwtBearerEvents
+    {
+        OnTokenValidated = context =>
+        {
+            //Este valor se recupera del metodo BuildToken, donde creamos un Claim de tipo Name
+            var userId = int.Parse(context.Principal.Identity.Name);
+            return Task.CompletedTask;
+        },
+
+        OnAuthenticationFailed = context =>
+        {
+            if (context.Exception.GetType() == typeof(SecurityTokenExpiredException))
+                context.Response.Headers.Add("Token-Expired", "true");
+
+            return Task.CompletedTask;
+        }
+    };
+
+    x.RequireHttpsMetadata = false;
+    x.SaveToken = false;
+    x.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(key),
+        ValidateIssuer = true,
+        ValidIssuer = issuer,
+        ValidAudience = audience,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ClockSkew = TimeSpan.Zero
+    };
+});
 
 //Definir documentación de Swagger | Reemplazar a conveniencia
 //Tambien se realiza una configuración en las propiedades del proyecto actual
@@ -67,6 +126,36 @@ builder.Services.AddSwaggerGen(x =>
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
     x.IncludeXmlComments(xmlPath);
 
+    x.AddSecurityDefinition("Authorization", new OpenApiSecurityScheme
+    {
+        Description = "Authorization by API key",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+        Name = "Authorization",
+        Scheme = "Bearer"
+    });
+
+    x.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                },
+                Scheme = "oauth2",
+                Name = "Bearer",
+                In = ParameterLocation.Header,
+            },
+            new List<string>()
+        }
+    });
+    //x.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>>
+    //{
+    //    { "Authorization", new string[0] }
+    //});
 });
 
 var app = builder.Build();
@@ -80,6 +169,9 @@ if (app.Environment.IsDevelopment())
         x.SwaggerEndpoint("/swagger/v1/swagger.json", "API ECOMMERCE V1");
     });
 }
+
+app.UseCors(myPolicy);
+app.UseAuthentication();
 
 //Definir la ruta por defecto al levantar el proyecto
 app.MapGet("/", () => Results.Redirect("swagger/index.html"));
