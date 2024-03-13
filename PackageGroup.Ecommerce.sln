@@ -27,15 +27,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PackageGroup.Ecommerce.Doma
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PackageGroup.Ecommerce.Domain.Core", "PackageGroup.Ecommerce.Domain.Core\PackageGroup.Ecommerce.Domain.Core.csproj", "{F81E9C75-3103-4A16-96F9-CE21B492348D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PackageGroup.Ecommerce.Application.DTO", "PackageGroup.Ecommerce.Application.DTO\PackageGroup.Ecommerce.Application.DTO.csproj", "{8BD15D75-E208-4293-B327-7B5BD33438A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PackageGroup.Ecommerce.Application.DTO", "PackageGroup.Ecommerce.Application.DTO\PackageGroup.Ecommerce.Application.DTO.csproj", "{8BD15D75-E208-4293-B327-7B5BD33438A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PackageGroup.Ecommerce.Transversal.Mapper", "PackageGroup.Ecommerce.Transversal.Mapper\PackageGroup.Ecommerce.Transversal.Mapper.csproj", "{54F65E11-5B47-45E5-8E30-DB93B7C87848}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PackageGroup.Ecommerce.Transversal.Mapper", "PackageGroup.Ecommerce.Transversal.Mapper\PackageGroup.Ecommerce.Transversal.Mapper.csproj", "{54F65E11-5B47-45E5-8E30-DB93B7C87848}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PackageGroup.Ecommerce.Application.Interface", "PackageGroup.Ecommerce.Application.Interface\PackageGroup.Ecommerce.Application.Interface.csproj", "{665344A6-2712-4881-910B-0FBD46402968}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PackageGroup.Ecommerce.Application.Interface", "PackageGroup.Ecommerce.Application.Interface\PackageGroup.Ecommerce.Application.Interface.csproj", "{665344A6-2712-4881-910B-0FBD46402968}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PackageGroup.Ecommerce.Application.Main", "PackageGroup.Ecommerce.Application.Main\PackageGroup.Ecommerce.Application.Main.csproj", "{29E40DB6-F66F-4C08-A40F-33104A8AE0CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PackageGroup.Ecommerce.Application.Main", "PackageGroup.Ecommerce.Application.Main\PackageGroup.Ecommerce.Application.Main.csproj", "{29E40DB6-F66F-4C08-A40F-33104A8AE0CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PackageGroup.Ecommerce.WebApi", "PackageGroup.Ecommerce.WebApi\PackageGroup.Ecommerce.WebApi.csproj", "{A7A88CB3-DC15-48AA-AA68-8C06D77A8F2E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PackageGroup.Ecommerce.WebApi", "PackageGroup.Ecommerce.WebApi\PackageGroup.Ecommerce.WebApi.csproj", "{A7A88CB3-DC15-48AA-AA68-8C06D77A8F2E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PackageGroup.Ecommerce.Transversal.Logging", "PackageGroup.Ecommerce.Transversal.Logging\PackageGroup.Ecommerce.Transversal.Logging.csproj", "{B45DC2DA-D3DF-44B8-B8CA-A46428A41414}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -91,6 +93,10 @@ Global
 		{A7A88CB3-DC15-48AA-AA68-8C06D77A8F2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A7A88CB3-DC15-48AA-AA68-8C06D77A8F2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A7A88CB3-DC15-48AA-AA68-8C06D77A8F2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B45DC2DA-D3DF-44B8-B8CA-A46428A41414}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B45DC2DA-D3DF-44B8-B8CA-A46428A41414}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B45DC2DA-D3DF-44B8-B8CA-A46428A41414}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B45DC2DA-D3DF-44B8-B8CA-A46428A41414}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -108,6 +114,7 @@ Global
 		{665344A6-2712-4881-910B-0FBD46402968} = {D2226A7A-1852-4995-A2FF-025324D9B659}
 		{29E40DB6-F66F-4C08-A40F-33104A8AE0CF} = {D2226A7A-1852-4995-A2FF-025324D9B659}
 		{A7A88CB3-DC15-48AA-AA68-8C06D77A8F2E} = {A11C28AD-B9AA-46F5-971C-6E37E99F95DF}
+		{B45DC2DA-D3DF-44B8-B8CA-A46428A41414} = {7B69D192-ECBA-4791-8FC4-7702FA35EDBD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {39ED16A6-FD9C-41AC-AE4E-9D123F58192A}

@@ -11,11 +11,16 @@ namespace PackageGroup.Ecommerce.Application.Main
     {
         private readonly ICustomerDomain _customerDomain;
         private readonly IMapper _mapper;
+        private readonly IAppLoger<CustomerApplication> _appLoger;
 
-        public CustomerApplication(ICustomerDomain customerDomain, IMapper mapper)
+        public CustomerApplication(
+            ICustomerDomain customerDomain,
+            IMapper mapper,
+            IAppLoger<CustomerApplication> appLoger)
         {
             _customerDomain = customerDomain;
             _mapper = mapper;
+            _appLoger = appLoger;
         }
 
         public Response<bool> Insert(CustomerDTO customerDto)
@@ -115,11 +120,13 @@ namespace PackageGroup.Ecommerce.Application.Main
                 {
                     response.IsSuccess = true;
                     response.Message = "Consulta Exitosa!!!";
+                    _appLoger.LogInformation("Consulta Exitosa!!!");
                 }
             }
             catch (Exception ex)
             {
                 response.Message = ex.Message;
+                _appLoger.LogError(response.Message);
             }
 
             return response;

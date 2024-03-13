@@ -9,6 +9,7 @@ using PackageGroup.Ecommerce.Infrastructure.Data;
 using PackageGroup.Ecommerce.Infrastructure.Interface;
 using PackageGroup.Ecommerce.Infrastructure.Repository;
 using PackageGroup.Ecommerce.Transversal.Common;
+using PackageGroup.Ecommerce.Transversal.Logging;
 using PackageGroup.Ecommerce.Transversal.Mapper;
 using PackageGroup.Ecommerce.WebApi.Helpers;
 using System.Reflection;
@@ -53,6 +54,9 @@ builder.Services.AddScoped<ICustomerDomain, CustomersDomain>();
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ICustomersRepository, CustomerRepository>();
+
+//SE DEFINE ASÍ PORQUE ES UNA CLASE GENÉRICA
+builder.Services.AddScoped(typeof(IAppLoger<>), typeof(LoggerAdapter<>));
 
 var key = Encoding.ASCII.GetBytes(appSettings.Secret);
 var issuer = appSettings.Issuer;
@@ -126,36 +130,31 @@ builder.Services.AddSwaggerGen(x =>
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
     x.IncludeXmlComments(xmlPath);
 
-    x.AddSecurityDefinition("Authorization", new OpenApiSecurityScheme
+    x.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Description = "Authorization by API key",
         In = ParameterLocation.Header,
-        Type = SecuritySchemeType.ApiKey,
+        //Type = SecuritySchemeType.ApiKey,
+        Type = SecuritySchemeType.Http,
         Name = "Authorization",
+        BearerFormat = "JWT",
         Scheme = "Bearer"
     });
 
     x.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
-        {
+         {
             new OpenApiSecurityScheme
             {
                 Reference = new OpenApiReference
                 {
-                    Type = ReferenceType.SecurityScheme,
+                    Type=ReferenceType.SecurityScheme,
                     Id = "Bearer"
-                },
-                Scheme = "oauth2",
-                Name = "Bearer",
-                In = ParameterLocation.Header,
+                }
             },
-            new List<string>()
+            new string[]{}
         }
     });
-    //x.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>>
-    //{
-    //    { "Authorization", new string[0] }
-    //});
 });
 
 var app = builder.Build();

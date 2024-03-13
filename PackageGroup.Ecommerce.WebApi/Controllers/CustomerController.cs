@@ -17,7 +17,7 @@ namespace PackageGroup.Ecommerce.WebApi.Controllers
         }
 
         #region SÍNCRONOS
-        [HttpPost]
+        [HttpPost("create")]
         public IActionResult Insert([FromBody] CustomerDTO customerDTO)
         {
             if (customerDTO == null) return BadRequest();
@@ -28,7 +28,7 @@ namespace PackageGroup.Ecommerce.WebApi.Controllers
             return BadRequest(response.Message);
         }
 
-        [HttpPut]
+        [HttpPut("update")]
         public IActionResult Update([FromBody] CustomerDTO customerDTO)
         {
             if (customerDTO == null) return BadRequest();
@@ -39,7 +39,7 @@ namespace PackageGroup.Ecommerce.WebApi.Controllers
             return BadRequest(response.Message);
         }
 
-        [HttpDelete("{customerId}")]
+        [HttpDelete("delete/{customerId}")]
         public IActionResult Delete(string customerId)
         {
             if (string.IsNullOrEmpty(customerId)) return BadRequest();
@@ -50,7 +50,7 @@ namespace PackageGroup.Ecommerce.WebApi.Controllers
             return BadRequest(response.Message);
         }
 
-        [HttpGet("{customerId}")]
+        [HttpGet("get-by-id/{customerId}")]
         public IActionResult Get(string customerId)
         {
             if (string.IsNullOrEmpty(customerId)) return BadRequest();
@@ -61,7 +61,7 @@ namespace PackageGroup.Ecommerce.WebApi.Controllers
             return BadRequest(response.Message);
         }
 
-        [HttpGet]
+        [HttpGet("get-all")]
         public IActionResult GetAll()
         {
             var response = _customerApplication.GetAll();
@@ -73,7 +73,7 @@ namespace PackageGroup.Ecommerce.WebApi.Controllers
 
 
         #region ASÍNCRONOS
-        [HttpPost("insert-async")]
+        [HttpPost("create-async")]
         public async Task<IActionResult> InsertAsync([FromBody] CustomerDTO customerDTO)
         {
             if (customerDTO == null) return BadRequest();
@@ -106,7 +106,7 @@ namespace PackageGroup.Ecommerce.WebApi.Controllers
             return BadRequest(response.Message);
         }
 
-        [HttpGet("get-async/{customerId}")]
+        [HttpGet("get-by-id-async/{customerId}")]
         public async Task<IActionResult> GetAsync(string customerId)
         {
             if (string.IsNullOrEmpty(customerId)) return BadRequest();
@@ -117,7 +117,7 @@ namespace PackageGroup.Ecommerce.WebApi.Controllers
             return BadRequest(response.Message);
         }
 
-        [HttpGet("get-async")]
+        [HttpGet("get-all-async")]
         public async Task<IActionResult> GetAllAsync()
         {
             var response = await _customerApplication.GetAllAsync();

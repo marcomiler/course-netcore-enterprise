@@ -27,7 +27,7 @@ namespace PackageGroup.Ecommerce.WebApi.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost]
+        [HttpPost("authenticate")]
         public IActionResult Authenticate([FromBody] UserDTO request)
         {
             var response = _userApplication.Authenticate(request.UserName, request.Password);
@@ -48,14 +48,17 @@ namespace PackageGroup.Ecommerce.WebApi.Controllers
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
+            var signInCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature);
+
+
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
                     new Claim(ClaimTypes.Name, userDTO.Data.UserId.ToString())
                 }),
-                Expires = DateTime.UtcNow.AddMinutes(1),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
+                Expires = DateTime.UtcNow.AddMinutes(10),
+                SigningCredentials = signInCredentials,
                 Issuer = _appSettings.Issuer,
                 Audience = _appSettings.Audience,
             };

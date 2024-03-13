@@ -7,12 +7,14 @@
     <InvariantGlobalization>false</InvariantGlobalization>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <DocumentationFile>PackageGroup.Ecommerce.WebApi\PackageGroup.Ecommerce.WebApi.xml</DocumentationFile>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="12.0.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.2" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.5.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.5.0" />
@@ -31,6 +33,7 @@
     <ProjectReference Include="..\PackageGroup.Ecommerce.Infrastructure.Interface\PackageGroup.Ecommerce.Infrastructure.Interface.csproj" />
     <ProjectReference Include="..\PackageGroup.Ecommerce.Infrastructure.Repository\PackageGroup.Ecommerce.Infrastructure.Repository.csproj" />
     <ProjectReference Include="..\PackageGroup.Ecommerce.Transversal.Common\PackageGroup.Ecommerce.Transversal.Common.csproj" />
+    <ProjectReference Include="..\PackageGroup.Ecommerce.Transversal.Logging\PackageGroup.Ecommerce.Transversal.Logging.csproj" />
     <ProjectReference Include="..\PackageGroup.Ecommerce.Transversal.Mapper\PackageGroup.Ecommerce.Transversal.Mapper.csproj" />
   </ItemGroup>
 
