@@ -41,6 +41,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PackageGroup.Ecommerce.Tran
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PackageGroup.Ecommerce.Aplication.Validator", "PackageGroup.Ecommerce.Aplication.Validator\PackageGroup.Ecommerce.Aplication.Validator.csproj", "{6D3A83EB-BA45-48C9-B9A2-B57C386395C4}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{9C33D34D-58E9-420C-B491-D246526D727F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PackageGroup.Ecommerce.Application.Test", "PackageGroup.Ecommerce.Application.Test\PackageGroup.Ecommerce.Application.Test.csproj", "{3CB82A17-64A1-4943-A63E-C462EA06CE8F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -103,6 +107,10 @@ Global
 		{6D3A83EB-BA45-48C9-B9A2-B57C386395C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D3A83EB-BA45-48C9-B9A2-B57C386395C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D3A83EB-BA45-48C9-B9A2-B57C386395C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3CB82A17-64A1-4943-A63E-C462EA06CE8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CB82A17-64A1-4943-A63E-C462EA06CE8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3CB82A17-64A1-4943-A63E-C462EA06CE8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CB82A17-64A1-4943-A63E-C462EA06CE8F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -122,6 +130,7 @@ Global
 		{A7A88CB3-DC15-48AA-AA68-8C06D77A8F2E} = {A11C28AD-B9AA-46F5-971C-6E37E99F95DF}
 		{B45DC2DA-D3DF-44B8-B8CA-A46428A41414} = {7B69D192-ECBA-4791-8FC4-7702FA35EDBD}
 		{6D3A83EB-BA45-48C9-B9A2-B57C386395C4} = {D2226A7A-1852-4995-A2FF-025324D9B659}
+		{3CB82A17-64A1-4943-A63E-C462EA06CE8F} = {9C33D34D-58E9-420C-B491-D246526D727F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {39ED16A6-FD9C-41AC-AE4E-9D123F58192A}

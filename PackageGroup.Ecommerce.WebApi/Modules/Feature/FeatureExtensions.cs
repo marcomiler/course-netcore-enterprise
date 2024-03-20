@@ -18,9 +18,7 @@ namespace PackageGroup.Ecommerce.WebApi.Modules.Feature
                 });
             });
 
-            services
-                .AddMvc()
-                .SetCompatibilityVersion(CompatibilityVersion.Latest);
+            services.AddMvc();
 
             return services;
         }

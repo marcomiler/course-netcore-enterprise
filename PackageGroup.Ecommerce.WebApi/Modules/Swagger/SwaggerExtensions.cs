@@ -1,4 +1,5 @@
-﻿using Microsoft.OpenApi.Models;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.OpenApi.Models;
 using System.Reflection;
 
 namespace PackageGroup.Ecommerce.WebApi.Modules.Swagger
@@ -37,31 +38,28 @@ namespace PackageGroup.Ecommerce.WebApi.Modules.Swagger
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 x.IncludeXmlComments(xmlPath);
 
-                x.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                var securityScheme = new OpenApiSecurityScheme
                 {
-                    Description = "Authorization by API key",
+                    Description = "Enter JWT Bearer token **_only_**",
                     In = ParameterLocation.Header,
                     //Type = SecuritySchemeType.ApiKey,
                     Type = SecuritySchemeType.Http,
                     Name = "Authorization",
                     BearerFormat = "JWT",
-                    Scheme = "Bearer"
-                });
+                    Scheme = "Bearer",
+                    Reference = new OpenApiReference
+                    {
+                        Id = JwtBearerDefaults.AuthenticationScheme,
+                        Type = ReferenceType.SecurityScheme
+                    }
+                };
 
+                x.AddSecurityDefinition(securityScheme.Reference.Id, securityScheme);
                 x.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
-                     {
-                        new OpenApiSecurityScheme
-                        {
-                            Reference = new OpenApiReference
-                            {
-                                Type=ReferenceType.SecurityScheme,
-                                Id = "Bearer"
-                            }
-                        },
-                        new string[]{}
-                    }
+                    { securityScheme, new string[]{} }
                 });
+
             });
 
             return services;
