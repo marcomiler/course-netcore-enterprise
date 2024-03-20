@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\PackageGroup.Ecommerce.Aplication.Validator\PackageGroup.Ecommerce.Aplication.Validator.csproj" />
     <ProjectReference Include="..\PackageGroup.Ecommerce.Application.DTO\PackageGroup.Ecommerce.Application.DTO.csproj" />
     <ProjectReference Include="..\PackageGroup.Ecommerce.Application.Interface\PackageGroup.Ecommerce.Application.Interface.csproj" />
     <ProjectReference Include="..\PackageGroup.Ecommerce.Application.Main\PackageGroup.Ecommerce.Application.Main.csproj" />

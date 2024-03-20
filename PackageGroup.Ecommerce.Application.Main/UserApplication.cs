@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using PackageGroup.Ecommerce.Aplication.Validator;
 using PackageGroup.Ecommerce.Application.DTO;
 using PackageGroup.Ecommerce.Application.Interface;
 using PackageGroup.Ecommerce.Domain.Interface;
@@ -10,18 +11,31 @@ namespace PackageGroup.Ecommerce.Application.Main
     {
         private readonly IUserDomain _usersDomain;
         private readonly IMapper _mapper;
+        private readonly UserDtoValidator _userDtoValidator;
 
-        public UserApplication(IUserDomain usersDomain, IMapper mapper)
+        public UserApplication(
+            IUserDomain usersDomain,
+            IMapper mapper,
+            UserDtoValidator userDtoValidator
+        )
         {
             _usersDomain = usersDomain;
             _mapper = mapper;
+            _userDtoValidator = userDtoValidator;
         }
         public Response<UserDTO> Authenticate(string username, string password)
         {
             var response = new Response<UserDTO>();
-            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            var validation = _userDtoValidator.Validate(new UserDTO
             {
-                response.Message = "Parámetros no pueden ser vacíos";
+                UserName = username,
+                Password = password
+            });
+
+            if (!validation.IsValid)
+            {
+                response.Message = "Errores de Validación";
+                response.Errors = validation.Errors;
                 return response;
             }
 
