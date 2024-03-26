@@ -1,5 +1,8 @@
+using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using PackageGroup.Ecommerce.WebApi.Modules.Authentication;
 using PackageGroup.Ecommerce.WebApi.Modules.Feature;
+using PackageGroup.Ecommerce.WebApi.Modules.HealthCheck;
 using PackageGroup.Ecommerce.WebApi.Modules.Injection;
 using PackageGroup.Ecommerce.WebApi.Modules.Mapper;
 using PackageGroup.Ecommerce.WebApi.Modules.Swagger;
@@ -20,6 +23,7 @@ builder.Services.AddAuthentication(builder.Configuration);
 builder.Services.AddVersioning();
 builder.Services.AddSwagger();
 builder.Services.AddValidator();
+builder.Services.AddHealthCheck(builder.Configuration);
 
 var app = builder.Build();
 
@@ -40,13 +44,26 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseCors(myPolicy);
-app.UseAuthentication();
 
 //Definir la ruta por defecto al levantar el proyecto
-app.MapGet("/", () => Results.Redirect("swagger/index.html"));
-app.UseRouting();
-app.UseAuthorization();
+//app.MapGet("/", () => Results.Redirect("swagger/index.html"));
 
-app.MapControllers();
+app.UseRouting();
+app.UseAuthentication();
+app.UseAuthorization();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapGet("/", () => Results.Redirect("swagger/index.html"));
+    endpoints.MapControllers();
+    endpoints.MapHealthChecksUI();
+
+    //route for healthcheck ui: /healthchecks-ui
+    endpoints.MapHealthChecks("/health", new HealthCheckOptions
+    {
+        Predicate = _ => true,
+        ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+    });
+});
+
 
 app.Run();
