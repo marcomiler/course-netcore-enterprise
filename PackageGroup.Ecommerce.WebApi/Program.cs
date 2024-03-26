@@ -4,6 +4,7 @@ using PackageGroup.Ecommerce.WebApi.Modules.Injection;
 using PackageGroup.Ecommerce.WebApi.Modules.Mapper;
 using PackageGroup.Ecommerce.WebApi.Modules.Swagger;
 using PackageGroup.Ecommerce.WebApi.Modules.Validator;
+using PackageGroup.Ecommerce.WebApi.Modules.Versioning;
 
 var builder = WebApplication.CreateBuilder(args);
 var myPolicy = "policyApiEcommerce";
@@ -16,6 +17,7 @@ builder.Services.AddMapper();
 builder.Services.AddFeature(builder.Configuration);
 builder.Services.AddInjection(builder.Configuration);
 builder.Services.AddAuthentication(builder.Configuration);
+builder.Services.AddVersioning();
 builder.Services.AddSwagger();
 builder.Services.AddValidator();
 
@@ -27,7 +29,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(x =>
     {
-        x.SwaggerEndpoint("/swagger/v1/swagger.json", "API ECOMMERCE V1");
+        //SI NO EXISTE VERSIONAMIENTO, PUEDE SER UNA OPCIÓN
+        //x.SwaggerEndpoint("/swagger/v1/swagger.json", "API ECOMMERCE V1");
+
+        foreach (var description in app.DescribeApiVersions())
+        {
+            x.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
+        }
     });
 }
 

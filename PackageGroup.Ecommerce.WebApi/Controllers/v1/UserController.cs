@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Asp.Versioning;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -10,11 +11,13 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace PackageGroup.Ecommerce.WebApi.Controllers
+namespace PackageGroup.Ecommerce.WebApi.Controllers.v1
 {
     [Authorize]
-    [Route("api/user")]
+    //[Route("api/user")]
+    [Route("api/{version:apiVersion}/user")]
     [ApiController]
+    [ApiVersion("1.0")]
     public class UserController : Controller
     {
         private readonly IUserApplication _userApplication;
@@ -37,7 +40,8 @@ namespace PackageGroup.Ecommerce.WebApi.Controllers
                 {
                     response.Data.Token = BuildToken(response);
                     return Ok(response);
-                } else
+                }
+                else
                     return NotFound(response.Message);
             }
 

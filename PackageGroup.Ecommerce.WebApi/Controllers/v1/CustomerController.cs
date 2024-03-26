@@ -1,13 +1,16 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Asp.Versioning;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PackageGroup.Ecommerce.Application.DTO;
 using PackageGroup.Ecommerce.Application.Interface;
 
-namespace PackageGroup.Ecommerce.WebApi.Controllers
+namespace PackageGroup.Ecommerce.WebApi.Controllers.v1
 {
     [Authorize]
-    [Route("api/customer")]
+    //[Route("api/customer")]
+    [Route("api/v{version:apiVersion}/customer")]
     [ApiController]
+    [ApiVersion("1.0")] //SI QUEREMOS DEPRECAR: [ApiVersion("1.0", Deprecated = true)]
     public class CustomerController : Controller
     {
         private readonly ICustomerApplication _customerApplication;
