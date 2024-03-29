@@ -28,6 +28,7 @@ namespace PackageGroup.Ecommerce.WebApi.Modules.Injection
 
             //SE DEFINE ASÍ PORQUE ES UNA CLASE GENÉRICA
             services.AddScoped(typeof(IAppLoger<>), typeof(LoggerAdapter<>));
+            services.AddScoped<IUnifOfWork, UnitOfWork>();
 
             return services;
         }
