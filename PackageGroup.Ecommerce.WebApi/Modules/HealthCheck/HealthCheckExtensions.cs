@@ -15,7 +15,12 @@ namespace PackageGroup.Ecommerce.WebApi.Modules.HealthCheck
                     tags: new[] { "database" })
                 .AddCheck<HealthCheckCustom>(
                     "HealthCheckCustom",
-                    tags: new[] { "custom" });
+                    tags: new[] { "custom" })
+
+                //Redis:
+                .AddRedis(
+                    configuration.GetConnectionString("RedisConnection"),
+                    tags: new[] { "cache" });
 
             services.AddHealthChecksUI(opt =>
             {

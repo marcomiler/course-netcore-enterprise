@@ -53,8 +53,10 @@ app.UseCors("policyApiEcommerce");
 //Definir la ruta por defecto al levantar el proyecto
 app.MapGet("/", () => Results.Redirect("swagger/index.html"));
 
+app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseEndpoints(endpoints => { });
 app.MapControllers();
 app.MapHealthChecksUI();
 app.MapHealthChecks("/health", new HealthCheckOptions
