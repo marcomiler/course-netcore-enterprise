@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using PackageGroup.Ecommerce.Transversal.Common;
+using WatchDog;
 
 namespace PackageGroup.Ecommerce.Transversal.Logging
 {
@@ -14,16 +15,20 @@ namespace PackageGroup.Ecommerce.Transversal.Logging
         public void LogError(string message, params object[] args)
         {
             _logger.LogError(message, args);
+            WatchLogger.Log(message);
         }
 
         public void LogInformation(string message, params object[] args)
         {
             _logger.LogInformation(message, args);
+            WatchLogger.Log(message);
         }
 
         public void LogWarning(string message, params object[] args)
         {
             _logger.LogWarning(message, args);
+            WatchLogger.Log(message);
         }
     }
 }
+

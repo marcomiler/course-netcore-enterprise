@@ -9,6 +9,8 @@ using PackageGroup.Ecommerce.WebApi.Modules.Mapper;
 using PackageGroup.Ecommerce.WebApi.Modules.Swagger;
 using PackageGroup.Ecommerce.WebApi.Modules.Validator;
 using PackageGroup.Ecommerce.WebApi.Modules.Versioning;
+using PackageGroup.Ecommerce.WebApi.Modules.Watch;
+using WatchDog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +26,7 @@ builder.Services.AddVersioning();
 builder.Services.AddSwagger();
 builder.Services.AddValidator();
 builder.Services.AddHealthCheck(builder.Configuration);
+builder.Services.AddWatchDog(builder.Configuration);
 
 var app = builder.Build();
 
@@ -41,6 +44,7 @@ if (app.Environment.IsDevelopment())
     });
 }
 
+app.UseWatchDogExceptionLogger();
 app.UseHttpsRedirection();
 app.UseCors("policyApiEcommerce");
 
@@ -57,6 +61,11 @@ app.MapHealthChecks("/health", new HealthCheckOptions
     ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
 });
 
+app.UseWatchDog(config =>
+{
+    config.WatchPageUsername = builder.Configuration["WatchDog:WatchPageUsername"];
+    config.WatchPagePassword = builder.Configuration["WatchDog:WatchPagePassword"];
+});
 app.Run();
 
 //Hacemos pública la clase Program para poder acceder a est desde TEST
