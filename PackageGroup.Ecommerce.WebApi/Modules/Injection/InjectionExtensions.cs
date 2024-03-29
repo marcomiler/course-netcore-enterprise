@@ -15,7 +15,7 @@ namespace PackageGroup.Ecommerce.WebApi.Modules.Injection
         public static IServiceCollection AddInjection(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddSingleton<IConfiguration>(configuration);
-            services.AddSingleton<IConnectionFactory, ConnectionFactory>();
+            services.AddSingleton<DapperContext>();
 
             services.AddScoped<IUserApplication, UserApplication>();
             services.AddScoped<ICustomerApplication, CustomerApplication>();

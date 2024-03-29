@@ -1,24 +1,24 @@
 ﻿using Dapper;
 using PackageGroup.Ecommerce.Domain.Entity;
+using PackageGroup.Ecommerce.Infrastructure.Data;
 using PackageGroup.Ecommerce.Infrastructure.Interface;
-using PackageGroup.Ecommerce.Transversal.Common;
 using System.Data;
 
 namespace PackageGroup.Ecommerce.Infrastructure.Repository
 {
     public class CustomerRepository : ICustomersRepository
     {
-        private readonly IConnectionFactory _connectionFactory;
+        private readonly DapperContext _context;
 
-        public CustomerRepository(IConnectionFactory connectionFactory)
+        public CustomerRepository(DapperContext context)
         {
-            _connectionFactory = connectionFactory;
+            _context = context;
         }
 
         #region Síncronos
         public bool Insert(Customers customer)
         {
-            using (var connection = _connectionFactory.GetConnection)
+            using (var connection = _context.CreateConnection())
             {
                 var query = "CustomersInsert";
                 var parameters = new DynamicParameters();
@@ -40,7 +40,7 @@ namespace PackageGroup.Ecommerce.Infrastructure.Repository
         }
         public bool Update(Customers customer)
         {
-            using (var connection = _connectionFactory.GetConnection)
+            using (var connection = _context.CreateConnection())
             {
                 var query = "CustomersUpdate";
                 var parameters = new DynamicParameters();
@@ -65,7 +65,7 @@ namespace PackageGroup.Ecommerce.Infrastructure.Repository
         }
         public bool Delete(string customerId)
         {
-            using (var connection = _connectionFactory.GetConnection)
+            using (var connection = _context.CreateConnection())
             {
                 var query = "CustomerDelete";
                 var parameters = new DynamicParameters();
@@ -80,7 +80,7 @@ namespace PackageGroup.Ecommerce.Infrastructure.Repository
         }
         public Customers Get(string customerId)
         {
-            using (var connection = _connectionFactory.GetConnection)
+            using (var connection = _context.CreateConnection())
             {
                 var query = "CustomersGetById";
                 var parameters = new DynamicParameters();
@@ -95,7 +95,7 @@ namespace PackageGroup.Ecommerce.Infrastructure.Repository
         }
         public IEnumerable<Customers> GetAll()
         {
-            using (var connection = _connectionFactory.GetConnection)
+            using (var connection = _context.CreateConnection())
             {
                 var query = "CustomersList";
                 var customers = connection.Query<Customers>(
@@ -112,7 +112,7 @@ namespace PackageGroup.Ecommerce.Infrastructure.Repository
         #region Asíncronos
         public async Task<bool> InsertAsync(Customers customer)
         {
-            using (var connection = _connectionFactory.GetConnection)
+            using (var connection = _context.CreateConnection())
             {
                 var query = "CustomersInsert";
                 var parameters = new DynamicParameters();
@@ -135,7 +135,7 @@ namespace PackageGroup.Ecommerce.Infrastructure.Repository
         }
         public async Task<bool> UpdateAsync(Customers customer)
         {
-            using (var connection = _connectionFactory.GetConnection)
+            using (var connection = _context.CreateConnection())
             {
                 var query = "CustomersUpdate";
                 var parameters = new DynamicParameters();
@@ -160,7 +160,7 @@ namespace PackageGroup.Ecommerce.Infrastructure.Repository
         }
         public async Task<bool> DeleteAsync(string customerId)
         {
-            using (var connection = _connectionFactory.GetConnection)
+            using (var connection = _context.CreateConnection())
             {
                 var query = "CustomersDelete";
                 var parameters = new DynamicParameters();
@@ -175,7 +175,7 @@ namespace PackageGroup.Ecommerce.Infrastructure.Repository
         }
         public async Task<Customers> GetAsync(string customerId)
         {
-            using (var connection = _connectionFactory.GetConnection)
+            using (var connection = _context.CreateConnection())
             {
                 var query = "CustomersGetById";
                 var parameters = new DynamicParameters();
@@ -184,13 +184,13 @@ namespace PackageGroup.Ecommerce.Infrastructure.Repository
                 var result = await connection.QuerySingleAsync<Customers>(
                     query,
                     parameters,
-                    commandType: System.Data.CommandType.StoredProcedure);
+                    commandType: CommandType.StoredProcedure);
                 return result;
             }
         }
         public async Task<IEnumerable<Customers>> GetAllAsync()
         {
-            using (var connection = _connectionFactory.GetConnection)
+            using (var connection = _context.CreateConnection())
             {
                 var query = "CustomersList";
 

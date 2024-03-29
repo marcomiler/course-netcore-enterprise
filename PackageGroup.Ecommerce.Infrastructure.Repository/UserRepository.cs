@@ -1,23 +1,23 @@
 ﻿using Dapper;
 using PackageGroup.Ecommerce.Domain.Entity;
+using PackageGroup.Ecommerce.Infrastructure.Data;
 using PackageGroup.Ecommerce.Infrastructure.Interface;
-using PackageGroup.Ecommerce.Transversal.Common;
 using System.Data;
 
 namespace PackageGroup.Ecommerce.Infrastructure.Repository
 {
     public class UserRepository : IUserRepository
     {
-        private readonly IConnectionFactory _connectionFactory;
+        private readonly DapperContext _context;
 
-        public UserRepository(IConnectionFactory connectionFactory)
+        public UserRepository(DapperContext context)
         {
-            _connectionFactory = connectionFactory;
+            _context = context;
         }
 
         public User Authenticate(string userName, string password)
         {
-            using (var connection = _connectionFactory.GetConnection)
+            using (var connection = _context.CreateConnection())
             {
                 var query = "UsersGetByUserAndPassword";
                 var parameters = new DynamicParameters();
