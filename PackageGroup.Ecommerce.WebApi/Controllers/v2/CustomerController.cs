@@ -77,6 +77,15 @@ namespace PackageGroup.Ecommerce.WebApi.Controllers.v2
 
             return BadRequest(response.Message);
         }
+
+        [HttpGet("get-all-with-pagination")]
+        public IActionResult GetAllPagination([FromQuery] int pageNumber, int pageSize)
+        {
+            var response = _customerApplication.GetAllWithPagination(pageNumber, pageSize);
+            if (response.IsSuccess) return Ok(response);
+
+            return BadRequest(response.Message);
+        }
         #endregion
 
 
@@ -134,6 +143,15 @@ namespace PackageGroup.Ecommerce.WebApi.Controllers.v2
         public async Task<IActionResult> GetAllAsync()
         {
             var response = await _customerApplication.GetAllAsync();
+            if (response.IsSuccess) return Ok(response);
+
+            return BadRequest(response.Message);
+        }
+
+        [HttpGet("get-all-with-pagination-async")]
+        public async Task<IActionResult> GetAllPaginationAsync([FromQuery] int pageNumber, int pageSize)
+        {
+            var response = await _customerApplication.GetAllWithPaginationAsync(pageNumber, pageSize);
             if (response.IsSuccess) return Ok(response);
 
             return BadRequest(response.Message);

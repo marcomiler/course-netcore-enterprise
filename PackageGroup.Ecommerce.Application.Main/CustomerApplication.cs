@@ -131,7 +131,34 @@ namespace PackageGroup.Ecommerce.Application.Main
 
             return response;
         }
+        public ResponsePagination<IEnumerable<CustomerDTO>> GetAllWithPagination(int pageNumber, int pageSize)
+        {
+            var response = new ResponsePagination<IEnumerable<CustomerDTO>>();
+            try
+            {
+                var count = _customerDomain.Count();
+                var customers = _customerDomain.GetAllWithPagination(pageNumber, pageSize);
+                response.Data = _mapper.Map<IEnumerable<CustomerDTO>>(customers);
 
+                if (response.Data is not null)
+                {
+                    response.IsSuccess = true;
+
+                    response.PageNumber = pageNumber;
+                    response.TotalPages = (int)Math.Ceiling(count / (double)pageSize);
+                    response.TotalCount = count;
+
+                    response.Message = "Consulta Exitosa!!!";
+                }
+
+            }
+            catch (Exception ex)
+            {
+                response.Message = ex.Message;
+            }
+
+            return response;
+        }
 
         public async Task<Response<bool>> InsertAsync(CustomerDTO customerDto)
         {
@@ -232,6 +259,34 @@ namespace PackageGroup.Ecommerce.Application.Main
                     response.IsSuccess = true;
                     response.Message = "Consulta Exitosa!!!";
                 }
+            }
+            catch (Exception ex)
+            {
+                response.Message = ex.Message;
+            }
+
+            return response;
+        }
+        public async Task<ResponsePagination<IEnumerable<CustomerDTO>>> GetAllWithPaginationAsync(int pageNumber, int pageSize)
+        {
+            var response = new ResponsePagination<IEnumerable<CustomerDTO>>();
+            try
+            {
+                var count = await _customerDomain.CountAsync();
+                var customers = await _customerDomain.GetAllWithPaginationAsync(pageNumber, pageSize);
+                response.Data = _mapper.Map<IEnumerable<CustomerDTO>>(customers);
+
+                if (response.Data is not null)
+                {
+                    response.IsSuccess = true;
+
+                    response.PageNumber = pageNumber;
+                    response.TotalPages = (int)Math.Ceiling(count / (double)pageSize);
+                    response.TotalCount = count;
+
+                    response.Message = "Consulta Exitosa!!!";
+                }
+
             }
             catch (Exception ex)
             {

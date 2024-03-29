@@ -10,7 +10,8 @@ namespace PackageGroup.Ecommerce.WebApi.Controllers.v1
     //[Route("api/customer")]
     [Route("api/v{version:apiVersion}/customer")]
     [ApiController]
-    [ApiVersion("1.0")] //SI QUEREMOS DEPRECAR: [ApiVersion("1.0", Deprecated = true)]
+    //SI QUEREMOS DEPRECAR:
+    [ApiVersion("1.0", Deprecated = true)]
     public class CustomerController : Controller
     {
         private readonly ICustomerApplication _customerApplication;
@@ -71,7 +72,7 @@ namespace PackageGroup.Ecommerce.WebApi.Controllers.v1
             if (response.IsSuccess) return Ok(response);
 
             return BadRequest(response.Message);
-        }
+        }        
         #endregion
 
 
@@ -127,7 +128,7 @@ namespace PackageGroup.Ecommerce.WebApi.Controllers.v1
             if (response.IsSuccess) return Ok(response);
 
             return BadRequest(response.Message);
-        }
+        }        
         #endregion
     }
 }

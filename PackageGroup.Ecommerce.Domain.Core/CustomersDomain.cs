@@ -34,6 +34,15 @@ namespace PackageGroup.Ecommerce.Domain.Core
         {
             return _unitOfWork.CustomersRepository.GetAll();
         }
+        public IEnumerable<Customers> GetAllWithPagination(int pageNumber, int pageSize)
+        {
+            return _unitOfWork.CustomersRepository.GetAllWithPagination(pageNumber, pageSize);
+        }
+
+        public int Count()
+        {
+            return _unitOfWork.CustomersRepository.Count();
+        }
         #endregion
 
 
@@ -57,6 +66,16 @@ namespace PackageGroup.Ecommerce.Domain.Core
         public async Task<IEnumerable<Customers>> GetAllAsync()
         {
             return await _unitOfWork.CustomersRepository.GetAllAsync();
+        }        
+
+        public async Task<IEnumerable<Customers>> GetAllWithPaginationAsync(int pageNumber, int pageSize)
+        {
+            return await _unitOfWork.CustomersRepository.GetAllWithPaginationAsync(pageNumber, pageSize);
+        }
+
+        public async Task<int> CountAsync()
+        {
+            return await _unitOfWork.CustomersRepository.CountAsync();
         }
         #endregion
     }
