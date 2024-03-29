@@ -7,13 +7,17 @@ namespace PackageGroup.Ecommerce.Infrastructure.Repository
         public ICustomersRepository CustomersRepository { get; }
         public IUserRepository UserRepository { get; }
 
+        public ICategoryRepository CategoryRepository { get; }
+
         public UnitOfWork(
             ICustomersRepository customersRepository,
-            IUserRepository userRepository
+            IUserRepository userRepository,
+            ICategoryRepository categoryRepository
         )
         {
             CustomersRepository = customersRepository;
             UserRepository = userRepository;
+            CategoryRepository = categoryRepository;
         }
 
         public void Dispose()

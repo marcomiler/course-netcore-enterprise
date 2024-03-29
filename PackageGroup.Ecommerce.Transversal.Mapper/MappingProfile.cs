@@ -24,6 +24,7 @@ namespace PackageGroup.Ecommerce.Transversal.Mapper
             //    .ForMember(d => d.Fax, o => o.MapFrom(x => x.Fax));
 
             CreateMap<User, UserDTO>().ReverseMap();
+            CreateMap<Category, CategoryDTO>().ReverseMap();
         }
     }
 }

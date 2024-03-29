@@ -19,12 +19,15 @@ namespace PackageGroup.Ecommerce.WebApi.Modules.Injection
 
             services.AddScoped<IUserApplication, UserApplication>();
             services.AddScoped<ICustomerApplication, CustomerApplication>();
+            services.AddScoped<ICategoryApplication, CategoryApplication>();
 
             services.AddScoped<IUserDomain, UserDomain>();
             services.AddScoped<ICustomerDomain, CustomersDomain>();
+            services.AddScoped<ICategoryDomain, CategoryDomain>();
 
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ICustomersRepository, CustomerRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
 
             //SE DEFINE ASÍ PORQUE ES UNA CLASE GENÉRICA
             services.AddScoped(typeof(IAppLoger<>), typeof(LoggerAdapter<>));

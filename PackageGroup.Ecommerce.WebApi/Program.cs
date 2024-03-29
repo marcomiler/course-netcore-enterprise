@@ -6,6 +6,7 @@ using PackageGroup.Ecommerce.WebApi.Modules.Feature;
 using PackageGroup.Ecommerce.WebApi.Modules.HealthCheck;
 using PackageGroup.Ecommerce.WebApi.Modules.Injection;
 using PackageGroup.Ecommerce.WebApi.Modules.Mapper;
+using PackageGroup.Ecommerce.WebApi.Modules.Redis;
 using PackageGroup.Ecommerce.WebApi.Modules.Swagger;
 using PackageGroup.Ecommerce.WebApi.Modules.Validator;
 using PackageGroup.Ecommerce.WebApi.Modules.Versioning;
@@ -27,6 +28,7 @@ builder.Services.AddSwagger();
 builder.Services.AddValidator();
 builder.Services.AddHealthCheck(builder.Configuration);
 builder.Services.AddWatchDog(builder.Configuration);
+builder.Services.AddRedisCache(builder.Configuration);
 
 var app = builder.Build();
 
